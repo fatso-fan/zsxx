@@ -27,7 +27,10 @@
       class="max-h-[300px] max-w-[800px] object-cover mx-auto my-6"
     />
 
-    <article class="article-content" v-html="data.content" />
+    <article
+      class="article-content"
+      v-html="beautifyText(data.content || '')"
+    />
   </main>
 </template>
 
@@ -35,8 +38,14 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Requests from '@/lib/requests'
-import { IList } from '@/lib/types'
+import { beautifyText } from '@/lib/utils'
 
+const p = defineProps({
+  infoType: {
+    type: String,
+    default: undefined,
+  },
+})
 const data = ref({
   name: '',
   createDate: '',
@@ -44,13 +53,23 @@ const data = ref({
   creatorName: '',
   src: '',
 })
-// const isskip = ref(false)
-const list = ref<IList[]>([])
 const { id } = useRoute().params
-Requests.get(`/backstage/news-spot/${id}`).then((res) => {
-  console.log(res)
-  data.value = res.data.data
-})
+if (p.infoType === 'news') {
+  Requests.get(`/backstage/news-information/${id}`).then((res) => {
+    console.log(res)
+    data.value = res.data.data
+  })
+} else if (p.infoType === 'notice') {
+  Requests.get(`/backstage/news-information/${id}`).then((res) => {
+    console.log(res)
+    data.value = res.data.data
+  })
+} else if (p.infoType === 'latest') {
+  Requests.get(`/backstage/call-board/${id}`).then((res) => {
+    console.log(res)
+    data.value = res.data.data
+  })
+}
 </script>
 
 <style lang="scss" scoped>
