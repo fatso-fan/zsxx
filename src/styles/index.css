@@ -1,0 +1,22 @@
+.viewport {
+  @apply max-w-7xl mx-auto;
+}
+ul .c-list-item {
+  @apply relative py-2 border-dashed border-b border-b-gray-300 pl-5
+      before:block before:w-2 before:h-2 before:rounded-full
+      before:bg-black before:absolute before:left-0
+      before:top-1/2 before:transform before:-translate-y-1/2
+      hover:text-black hover:border-black;
+}
+
+ul .c-list-item a {
+  @apply flex items-center justify-between;
+}
+
+ul .c-list-item .title {
+  @apply truncate;
+}
+
+ul .c-list-item .time {
+  @apply text-gray-500 text-base pl-8 flex-shrink-0 font-mono;
+}

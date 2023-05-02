@@ -1,0 +1,17 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+# added sources
+CVS
+*.html
+public
+.vscode
+*.d.ts
+*.md
+
+tailwind.config.cjs
+/src/lib/turn.js
+@/lib/turn.js
