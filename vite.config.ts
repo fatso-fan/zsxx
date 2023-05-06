@@ -21,7 +21,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/school': {
-        target: 'http://81.70.207.82:8888',
+        target: 'http://maazcc.cn:8888',
         changeOrigin: true,
       },
     },

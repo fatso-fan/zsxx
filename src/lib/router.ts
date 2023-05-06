@@ -66,6 +66,26 @@ const routes: Array<RouteRecordRaw> = [
     name: 'student',
     component: () => import('@/views/StudentCorner2.vue'),
   },
+  {
+    path: '/swpier/:id',
+    name: 'swpier',
+    component: () => import('@/views/SwpierDetail.vue'),
+  },
+  {
+    path: '/FeedBackPage',
+    name: 'FeedBackPage',
+    component: () => import('@/views/FeedBackPage.vue'),
+  },
+  {
+    path: '/Policy',
+    name: 'Policy',
+    component: () => import('@/views/PolicyList.vue'),
+  },
+  {
+    path: '/Policy/:id',
+    name: 'Policy',
+    component: () => import('@/views/PolicyDetail.vue'),
+  },
 ]
 const router = createRouter({
   history,

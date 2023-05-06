@@ -30,6 +30,7 @@
         <div class="flex mt-6 items-center justify-center">
           <a-pagination
             v-model:current="page"
+            v-model:page-size="limit"
             :total="total"
             @change="getInformationList(typeValue as number)"
           />
@@ -60,9 +61,11 @@ const sideNavs = [
   { name: '新闻资讯', key: 'news' },
   { name: '通知公告', key: 'notice' },
   { name: '最新导读', key: 'latest' },
+  { name: '优秀学生', key: '' },
+  { name: '名师风采', key: '' },
 ]
 
-const { getInformationList, list, page, total } = useInformation()
+const { getInformationList, list, page, total, limit } = useInformation()
 
 const init = (newPath: string) => {
   // console.log(newPath);

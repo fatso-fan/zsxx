@@ -16,17 +16,18 @@
               v-for="item in latestGuide"
               :key="item.id"
               :to="`/latest/${item.id}`"
-              class="flex items-center mt-4 gap-10 w-1/2 cursor-pointer"
+              class="flex items-center mt-6 gap-10 w-1/2 cursor-pointer"
             >
               <div class="p-4 bg-green-500 text-white">
-                <div class="font-black text-lg">{{ item.month }}</div>
                 <div>{{ item.createDate }}</div>
               </div>
               <div class="text-balck">
                 <div class="text-green-600 font-black text-lg">
                   {{ item.name }}
                 </div>
-                <div class="mt-2">{{ item.content }}</div>
+                <div class="mt-2 truncate w-48">
+                  {{ item.content }}
+                </div>
               </div>
             </router-link>
           </div>
@@ -61,7 +62,7 @@
               <li
                 v-for="(item, i) in news"
                 :key="i"
-                class="c-list-item cursor-pointer"
+                class="c-list-item cursor-pointer truncate"
               >
                 <router-link :to="`/notice/${item.id}`">
                   {{ item.name }}
@@ -76,27 +77,35 @@
       <aside class="asdio_left">
         <div class="asdio_left_ur">
           <span class="text-white text-lg font-black mt-2 tracking-widest">
-            名师课堂
+            校园人物
           </span>
         </div>
         <div class="flex gap-5 mt-4">
           <a-carousel
-            class="w-1/2"
+            class="w-1/2 relative h-[280px]"
             :auto-play="true"
-            indicator-type="dot"
             show-arrow="hover"
+            indicator-type="never"
           >
             <a-carousel-item v-for="image in mingshi" :key="image.id">
-              <img
-                :src="image.picture"
-                :style="{
-                  width: '100%',
-                  height: '100%',
-                }"
-              />
+              <router-link :to="`/swpier/${image.id}`">
+                <img
+                  :src="image.picture"
+                  :style="{
+                    width: '100%',
+                    height: '100%',
+                  }"
+                />
+                <span
+                  class="absolute text-lg w-full p-2 text-center bg-gray-600 bottom-0 left-0 text-white"
+                >
+                  {{ image.name }}老师
+                </span>
+              </router-link>
             </a-carousel-item>
           </a-carousel>
           <div class="mt-4">
+            <h2>优秀学子</h2>
             <ul>
               <li v-for="item in mingshi" :key="item.id" class="c-list-item">
                 <a href="/">{{ item.motto }}</a>
@@ -118,7 +127,7 @@
         </a-card>
       </div>
     </section>
-    <section class="w-full mt-2">
+    <section class="w-full mt-6">
       <aside class="asdio_left !w-full">
         <div class="asdio_left_ur">
           <span class="text-white text-lg font-black mt-2 tracking-widest">
@@ -139,13 +148,8 @@ import swpier from '@/components/Swiper.vue'
 import SpSwiper from '@/components/SpSwiper.vue'
 import requests from '@/lib/requests'
 
-const images = [
-  'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp',
-  'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp',
-  'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp',
-]
 // 新闻资讯
-const news = ref()
+const news = ref<any[]>()
 const limit = ref(5)
 const page = ref(1)
 requests
@@ -158,7 +162,7 @@ requests
     news.value = res.data.data.list
   })
 // 通知公告
-const list = ref()
+const list = ref<any[]>()
 requests
   .get('/backstage/call-board/page', {
     limit: limit.value,
@@ -169,18 +173,25 @@ requests
     list.value = res.data.data.list
   })
 // 最新导读
-const latestGuide = ref()
+type s = {
+  name: string
+  month: string
+  id: string | number
+  content: string
+  createDate: string
+}
+const latestGuide = ref<s[]>()
 requests
   .get('/backstage/news-spot/page', {
-    limit: limit.value,
+    limit: 12,
     page: page.value,
   })
   .then((res) => {
-    // console.log(res.data.data.list)
+    console.log(res.data.data)
     latestGuide.value = res.data.data.list
   })
 // 名师课堂
-const mingshi = ref()
+const mingshi = ref<any[]>()
 requests
   .get('/backstage/master-class/page', {
     limit: limit.value,

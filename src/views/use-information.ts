@@ -5,7 +5,7 @@ import Requests from '@/lib/requests'
 const useInformation = () => {
   const list = ref<any[]>()
   const page = ref(1)
-  const limit = ref(5)
+  const limit = ref(8)
   const total = ref(0)
 
   const getInformationList = (infoType: number) => {
@@ -16,8 +16,8 @@ const useInformation = () => {
         page: page.value,
       }).then((res) => {
         list.value = res.data.data.list
-        console.log(list.value)
         total.value = res.data.data.total
+        console.log(total.value)
       })
     } else if (infoType === 1) {
       Requests.get('/backstage/call-board/page', {
@@ -44,6 +44,7 @@ const useInformation = () => {
     list,
     page,
     total,
+    limit,
     getInformationList,
   }
 }
