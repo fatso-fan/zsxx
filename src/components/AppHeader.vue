@@ -44,7 +44,7 @@ const route = useRoute()
 const navigationList = ref([
   { name: '学校概括', path: '/overview' },
   { name: '教学教研', path: '/news' },
-  { name: '政策支持 ', path: '/Policy' },
+  { name: '知识海洋 ', path: '/Policy' },
   { name: '学生天地', path: '/student' },
   { name: '联系我们', path: '/FeedBackPage' },
 ])

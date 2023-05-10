@@ -22,11 +22,14 @@
               @submit="sendMessage"
             >
               <a-form-item
-                field="name"
+                field="creator"
                 label="姓名"
                 :rules="[{ required: true, message: '请填写该字段' }]"
               >
-                <a-input v-model="form.name" placeholder="我们该怎样称呼您" />
+                <a-input
+                  v-model="form.creator"
+                  placeholder="我们该怎样称呼您"
+                />
               </a-form-item>
               <a-form-item
                 field="phone"
@@ -36,12 +39,12 @@
                 <a-input v-model="form.phone" placeholder="建议填写手机号" />
               </a-form-item>
               <a-form-item
-                field="message"
+                field="content"
                 label="留言内容"
                 :rules="[{ required: true, message: '请填写该字段' }]"
               >
                 <a-textarea
-                  v-model="form.message"
+                  v-model="form.content"
                   placeholder="描述您的问题"
                   :auto-size="{ minRows: 6, maxRows: 20 }"
                 />
@@ -81,19 +84,31 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { Message } from '@arco-design/web-vue'
+import Requests from '@/lib/requests'
 
 const form = reactive({
   name: '',
+  content: '',
+  creator: '',
   phone: '',
-  message: '',
-  type: -1,
-  options: [],
-  category: '',
 })
-const check = ref()
-const radio = ref()
 const sendMessage = () => {
   // console.log(form.category, form.options.length);
+  Requests.post('/school/feedback', {
+    name: form.name,
+    content: form.content,
+    creator: form.creator,
+    phone: form.phone,
+  }).then((res) => {
+    if (res.data.msg === 'success') {
+      Message.success('留言成功')
+      form.name = ''
+      form.phone = ''
+      form.content = ''
+      form.phone = ''
+    }
+  })
 }
 </script>
 

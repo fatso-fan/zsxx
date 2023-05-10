@@ -63,6 +63,7 @@ const data = ref({
   creatorName: '',
 })
 const { id } = useRoute().params
+console.log(p.infoType)
 if (p.infoType === 'news') {
   Requests.get(`/backstage/news-information/info`, {
     id: id as string,

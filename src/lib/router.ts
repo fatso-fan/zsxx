@@ -83,7 +83,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/Policy/:id',
-    name: 'Policy',
+    name: 'Policys',
     component: () => import('@/views/PolicyDetail.vue'),
   },
 ]

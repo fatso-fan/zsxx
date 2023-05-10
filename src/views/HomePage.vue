@@ -26,7 +26,7 @@
                   {{ item.name }}
                 </div>
                 <div class="mt-2 truncate w-48">
-                  {{ item.content }}
+                  {{ item.title }}
                 </div>
               </div>
             </router-link>
@@ -43,19 +43,19 @@
                 :key="i"
                 class="c-list-item cursor-pointer"
               >
-                <router-link :to="`/news/${item.id}`">
+                <router-link :to="`/notice/${item.id}`">
                   {{ item.name }}
                 </router-link>
               </li>
             </ul>
           </div>
           <div class="text-right mt-4">
-            <router-link to="/news">更多>></router-link>
+            <router-link to="/notice">更多>></router-link>
           </div>
         </div>
         <a-card :style="{ width: '100%' }" title="新闻资讯" class="mt-2">
           <template #extra>
-            <router-link to="/notice">更多</router-link>
+            <router-link to="/news">更多</router-link>
           </template>
           <div>
             <ul>
@@ -64,7 +64,7 @@
                 :key="i"
                 class="c-list-item cursor-pointer truncate"
               >
-                <router-link :to="`/notice/${item.id}`">
+                <router-link :to="`/news/${item.id}`">
                   {{ item.name }}
                 </router-link>
               </li>
@@ -179,6 +179,7 @@ type s = {
   id: string | number
   content: string
   createDate: string
+  title: string
 }
 const latestGuide = ref<s[]>()
 requests

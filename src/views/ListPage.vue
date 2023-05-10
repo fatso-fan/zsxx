@@ -61,8 +61,6 @@ const sideNavs = [
   { name: '新闻资讯', key: 'news' },
   { name: '通知公告', key: 'notice' },
   { name: '最新导读', key: 'latest' },
-  { name: '优秀学生', key: '' },
-  { name: '名师风采', key: '' },
 ]
 
 const { getInformationList, list, page, total, limit } = useInformation()
