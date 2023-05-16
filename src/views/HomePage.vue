@@ -108,7 +108,7 @@
             <h2>优秀学子</h2>
             <ul>
               <li v-for="item in mingshi" :key="item.id" class="c-list-item">
-                <a href="/">{{ item.motto }}</a>
+                <a href="/" v-html="item.motto"></a>
               </li>
             </ul>
           </div>
