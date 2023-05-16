@@ -11,7 +11,7 @@
           <div class="relative inline-flex">
             <input
               v-model="filter.keyword"
-              class="w-80 h-8 border outline-none pl-3 rounded-full focus:border-red-500 focus:bg-red-50 pr-8 text-sm"
+              class="w-80 h-8 border outline-none pl-3 rounded-full focus:border-green-500 focus:bg-green-50 pr-8 text-sm"
               placeholder="输入关键字进行查找"
             />
             <a-button
@@ -41,7 +41,6 @@
             type="button"
             @change="handleChange"
           >
-            <a-radio :value="-1">不限</a-radio>
             <a-radio :value="1">语文</a-radio>
             <a-radio :value="2">数学</a-radio>
             <a-radio :value="3">英语</a-radio>
@@ -63,9 +62,6 @@
         <div class="mt-2">
           {{ item.author }}
         </div>
-        <div class="text-sm text-gray-500 mt-4 truncate">
-          {{ item.content }}
-        </div>
       </router-link>
     </div>
 
@@ -82,7 +78,6 @@
 <script setup lang="ts">
 import { Search } from '@salmon-ui/icons'
 import { useRoute } from 'vue-router'
-import SIcon from '@/components/SIcon.vue'
 import getPolicies from './use-policies'
 
 const { policies, filter, getList, pagination, handleChange, resetFilter } =

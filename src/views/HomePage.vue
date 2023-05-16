@@ -105,12 +105,22 @@
             </a-carousel-item>
           </a-carousel>
           <div class="mt-4">
-            <h2>优秀学子</h2>
-            <ul>
-              <li v-for="item in mingshi" :key="item.id" class="c-list-item">
-                <a href="/" v-html="item.motto"></a>
-              </li>
-            </ul>
+            <h2>作业查询</h2>
+            <div class="relative inline-flex">
+              <input
+                class="w-80 h-8 border outline-none pl-3 rounded-full focus:border-red-500 focus:bg-red-50 pr-8 text-sm"
+                placeholder="输入关键字进行查找"
+              />
+              <a-button
+                class="absolute right-0 top-0 !inline-flex !items-center justify-center h-8"
+                shape="round"
+                type="primary"
+                status="success"
+              >
+                <s-icon class="mr-1 text-lg" :name="Search" />
+                搜索
+              </a-button>
+            </div>
           </div>
         </div>
       </aside>
@@ -144,6 +154,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Search } from '@salmon-ui/icons'
 import swpier from '@/components/Swiper.vue'
 import SpSwiper from '@/components/SpSwiper.vue'
 import requests from '@/lib/requests'
