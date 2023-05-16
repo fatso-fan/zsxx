@@ -4,11 +4,11 @@ import Requests from '@/lib/requests'
 
 const getPolicies = () => {
   const policies = ref<any[]>([])
-  const filter = ref({
+  const filter = ref<any>({
     subject: -1,
     keyword: '',
     tag: -1,
-    type: 1,
+    type: '',
   })
   const pagination = ref({
     page: 1,
