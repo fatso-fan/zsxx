@@ -5,12 +5,13 @@
       <a-breadcrumb-item>知识海洋</a-breadcrumb-item>
       <a-breadcrumb-item>{{ policy.name }}</a-breadcrumb-item>
     </a-breadcrumb>
+    <div></div>
     <h2 class="text-3xl text-center font-bold">{{ policy?.name }}</h2>
     <div class="text-center mt-4">
       {{ policy?.author }}
     </div>
     <article
-      class="article-content text-center mt-4"
+      class="article-content text-center mt-4 text-xl"
       v-html="beautifyText(policy?.content)"
     />
   </main>

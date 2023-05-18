@@ -11,14 +11,40 @@
     <img
       v-if="policy.picture"
       :src="policy.picture"
-      class="max-h-[300px] max-w-[800px] object-cover mx-auto my-6"
+      class="max-h-[300px] max-w-[800px] object-cover mx-auto my-10"
     />
+    <section>
+      <h3 class="section-title">
+        <span>
+          <s-icon :name="AwardFill" />
+        </span>
+        教师荣誉
+      </h3>
+      <div v-html="policy.honor" />
+    </section>
+    <section>
+      <h3 class="section-title">
+        <span>
+          <s-icon :name="BubbleChart" />
+        </span>
+        教师座右铭
+      </h3>
+      <div v-html="policy.motto" />
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import {
+  FileListFill,
+  EditCircleFill,
+  GroupFill,
+  AwardFill,
+  BubbleChart,
+  BookOpen,
+} from '@salmon-ui/icons'
 import Requests from '@/lib/requests'
 
 const { id } = useRoute().params
@@ -36,4 +62,17 @@ Requests.get('/backstage/master-class/info', {
 )
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.section-title {
+  @apply flex items-center border-dashed border-b-2 border-b-gray-200 text-xl;
+  span {
+    @apply text-xl leading-none bg-green-600 text-white inline-flex items-center justify-center h-10 w-10 rounded mr-2;
+  }
+}
+section {
+  @apply mt-4;
+  div {
+    @apply mt-2;
+  }
+}
+</style>

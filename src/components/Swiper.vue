@@ -8,6 +8,7 @@
       :space-between="50"
       :navigation="true"
       :loop="true"
+      :autoplay="true"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >

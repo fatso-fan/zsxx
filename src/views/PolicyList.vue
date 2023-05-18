@@ -54,13 +54,20 @@
         v-for="item in policies"
         :key="item.id"
         :to="`/policy/${item.id}`"
-        class="px-6 py-4 border border-gray-300 hover:border-green-700 group"
+        class="px-6 py-4 border border-gray-300 hover:border-green-700 group flex justify-between gap-2"
       >
-        <div class="text-lg font-bold text-gray-700 group-hover:text-green-700">
-          {{ item.name }}
+        <div class="text-center flex-1">
+          <div
+            class="text-lg font-bold text-gray-700 group-hover:text-green-700 truncate"
+          >
+            {{ item.name }}
+          </div>
+          <div class="mt-2">
+            {{ item.author }}
+          </div>
         </div>
-        <div class="mt-2">
-          {{ item.author }}
+        <div class="flex-1">
+          <img :src="item.image" class="max-w-[100px] max-h-[100px]" />
         </div>
       </router-link>
     </div>
@@ -68,6 +75,7 @@
     <div class="mt-6 flex justify-center">
       <a-pagination
         v-model:current="pagination.page"
+        v-model:page-size="pagination.limit"
         :total="pagination.total"
         @change="getList"
       />

@@ -82,7 +82,7 @@
         </div>
         <div class="flex gap-5 mt-4">
           <a-carousel
-            class="w-1/2 relative h-[280px]"
+            class="w-2/5 relative h-[280px]"
             :auto-play="true"
             show-arrow="hover"
             indicator-type="never"
@@ -97,30 +97,49 @@
                   }"
                 />
                 <span
-                  class="absolute text-lg w-full p-2 text-center bg-gray-600 bottom-0 left-0 text-white"
+                  class="absolute text-lg w-full p-2 text-center bg-gray-600 opacity-60 bottom-0 left-0 text-white"
                 >
                   {{ image.name }}老师
                 </span>
               </router-link>
             </a-carousel-item>
           </a-carousel>
-          <div class="mt-4">
-            <h2>作业查询</h2>
-            <div class="relative inline-flex">
-              <input
-                class="w-80 h-8 border outline-none pl-3 rounded-full focus:border-red-500 focus:bg-red-50 pr-8 text-sm"
-                placeholder="输入关键字进行查找"
-              />
-              <a-button
-                class="absolute right-0 top-0 !inline-flex !items-center justify-center h-8"
-                shape="round"
-                type="primary"
-                status="success"
-              >
-                <s-icon class="mr-1 text-lg" :name="Search" />
-                搜索
-              </a-button>
+          <div class="mt-4 w-3/5">
+            <div class="flex items-center">
+              <div class="search-item flex flex-wrap">
+                <a-radio-group
+                  v-model="type"
+                  class="text-radio-group"
+                  type="button"
+                  @change="handleChange"
+                >
+                  <a-radio :value="10">一年级</a-radio>
+                  <a-radio :value="20">二年级</a-radio>
+                  <a-radio :value="30">三年级</a-radio>
+                  <a-radio :value="40">四年级</a-radio>
+                  <a-radio :value="50">五年级</a-radio>
+                  <a-radio :value="60">六年级</a-radio>
+                </a-radio-group>
+              </div>
             </div>
+            <div class="h-[180px] flex flex-wrap">
+              <div
+                v-for="item in date"
+                :key="item.id"
+                class="mt-1 w-full text-green-600 hover:text-white hover:bg-gray-300 p-1"
+              >
+                <router-link :to="`/latest/${item.id}`">
+                  {{ item.name }}
+                </router-link>
+              </div>
+            </div>
+            <a-pagination
+              v-model:current="pages"
+              v-model:page-size="limits"
+              class="mt-2"
+              :total="totals"
+              @change="handleChange"
+            />
           </div>
         </div>
       </aside>
@@ -155,10 +174,30 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Search } from '@salmon-ui/icons'
+import { useRouter } from 'vue-router'
 import swpier from '@/components/Swiper.vue'
 import SpSwiper from '@/components/SpSwiper.vue'
 import requests from '@/lib/requests'
 
+const keyword = ref()
+const type = ref(10)
+const date = ref()
+const totals = ref()
+const pages = ref(1)
+const limits = ref(5)
+const handleChange = () => {
+  requests
+    .get('/backstage/news-spot/page', {
+      limit: limits.value,
+      page: pages.value,
+      name: '',
+      type: type.value,
+    })
+    .then((res) => {
+      date.value = res.data.data.list
+      totals.value = res.data.data.total
+    })
+}
 // 新闻资讯
 const news = ref<any[]>()
 const limit = ref(5)

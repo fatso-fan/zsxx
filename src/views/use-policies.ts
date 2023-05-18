@@ -29,6 +29,7 @@ const getPolicies = () => {
       (res) => {
         console.log(res)
         policies.value = res.data.data.list
+        pagination.value.total = res.data.data.total
       },
       (err) => {
         // console.log(err)
